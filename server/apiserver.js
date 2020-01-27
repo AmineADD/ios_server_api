@@ -41,7 +41,8 @@ server.get('/loginEtude/:mail', (request, response) => {
     if (error) {
       throw error
     }
-    response.send(results.rows)
+    response.send({result:results.rows}) 
+    response.end();
   })
 })
 server.get('/loginProf/:mail', (request, response) => {
@@ -50,7 +51,7 @@ server.get('/loginProf/:mail', (request, response) => {
     if (error) {
       throw error
     }
-    response.send(results.rows)
+    response.send({result:results.rows}) 
   })
 })
 
@@ -63,7 +64,7 @@ server.get('/compt', (request, response) => {
         if (error) {
           throw error
         }
-        response.send(results.rows)
+        response.send({result:results.rows}) 
       });
     } else { 
       let { mailProf, idMatiere, idNiveau} = url_parts.query; 
@@ -81,18 +82,18 @@ server.get('/compt', (request, response) => {
         if (error) {
           throw error
         }
-        response.send(results.rows)
+        response.send({result:results.rows}) 
       });
 
 
     }
 })
 server.get('/compt/:id', (request, response) => {
-  pool.query('select f.*,m.libelle as matiere ,n.libelle as niveau from COMPETENCES c inner join Prof f on c.mailprof=f.mailProf inner join MATIERES m on c.id_mat = m.id_mat inner join NIVEAUX n on c.niveau_id=n.niveau_id where f.prof_id='+request.params.id, (error, results) => {
+   pool.query('select f.*,m.libelle as matiere ,n.libelle as niveau from COMPETENCES c inner join Prof f on c.mailprof=f.mailProf inner join MATIERES m on c.id_mat = m.id_mat inner join NIVEAUX n on c.niveau_id=n.niveau_id where f.prof_id='+request.params.id, (error, results) => {
     if (error) {
       throw error
     }
-    response.send(results.rows)
+    response.send({result:results.rows}) 
   });
 })
 
@@ -102,7 +103,7 @@ server.get('/cours', (request, response) => {
         if (error) {
           throw error
         }
-        response.send(results.rows)
+        response.send({result:results.rows}) 
       })
 
 })
@@ -115,7 +116,7 @@ server.get('/eleves', (request, response) => {
       if (error) {
         throw error
       }
-      response.send(results.rows)
+      response.send({result:results.rows}) 
     });
   } else {
     //ELEVE(mailEleve, nom, prénom, adresse, idNiveau*)
@@ -139,7 +140,8 @@ server.get('/niveaux', (request, response) => {
       if (error) {
         throw error
       }
-      response.send(results.rows)
+      response.send({result:results.rows}) 
+      response.end();
     })
 
 })
@@ -152,7 +154,8 @@ server.get('/prof', (request, response) => {
         if (error) {
           throw error
         }
-        response.send(results.rows)
+        response.send({result:results.rows}) 
+        response.end();
       });
     } else { 
       let { mailProf, nom, prenom, présentation} = url_parts.query;
@@ -178,7 +181,7 @@ server.get('/matieres', (request, response) => {
           if (error) {
             throw error
           }
-          response.send(results.rows)
+          response.send({result:results.rows}) 
         })
    }else{
        response.write("You want to add");
@@ -192,7 +195,8 @@ server.get('/CoursDemande/:mail', (request, response) => {
     if (error) {
       throw error
     }
-    response.send(results.rows)
+    response.send({result:results.rows}) 
+    response.end();
   });
 })
 
@@ -201,7 +205,8 @@ server.get('/CoursProgramme/:mail', (request, response) => {
     if (error) {
       throw error
     }
-    response.send(results.rows)
+    response.send({result:results.rows}) 
+    response.end();
   });
 })
 
@@ -211,7 +216,8 @@ server.get('/CoursRealise/:mail', (request, response) => {
     if (error) {
       throw error
     }
-    response.send(results.rows)
+    response.send({result:results.rows}) 
+    response.end();
   });
 })
 
@@ -220,7 +226,8 @@ server.get('/CoursMesDemande/:mail', (request, response) => {
     if (error) {
       throw error
     }
-    response.send(results.rows)
+    response.send({result:results.rows}) 
+    response.end();
   });
 });
 
@@ -257,7 +264,7 @@ server.get('/CoursDoDemande/', (request, response) => {
 
 
   
-server.listen(process.env.PORT || 2000,(err,res)=>{
+server.listen(process.env.port ||2020,(err,res)=>{
     if(err){
         console.log(err)
     }else{
