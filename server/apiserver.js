@@ -28,7 +28,6 @@ const pool = new Pool({
 
 //les APIS REST
 //login
-//
 //Etudiants voir les compétences 
 //clicker sur compétences pour faire une ligne dans cours
 //cours d'un eleves 
@@ -266,7 +265,7 @@ server.get('/CoursDoDemande/', (request, response) => {
 
 
   
-server.listen(  2020 ,(err,res)=>{
+server.listen( process.env.PORT ||  2020 ,(err,res)=>{
     if(err){
         console.log(err)
     }else{
