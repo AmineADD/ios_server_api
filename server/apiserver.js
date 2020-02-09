@@ -74,12 +74,11 @@ server.get('/compt', (request, response) => {
         if(idNiveau===undefined && idMatiere===undefined){ 
           check="f.mailProf='"+mailProf+"'";
          }else{
-           
           check="and f.mailProf='"+mailProf+"'";
          }  
       }
      
-      pool.query("select f.*,m.libelle as matiere ,n.libelle as niveau from COMPETENCES c inner join Prof f on f.mailProf=f.mailProf inner join MATIERES m on c.id_mat = m.id_mat inner join NIVEAUX n on c.niveau_id=n.niveau_id where "+(idNiveau!==undefined? 'c.niveau_id='+idNiveau : '')+(idNiveau!==undefined?  (idMatiere!==undefined ? 'and  c.id_mat='+idMatiere : '' ) : (idMatiere!==undefined ? 'c.id_mat='+idMatiere : '' ) )+ check , (error, results) => {
+      pool.query("select f.*,m.libelle as matiere ,n.libelle as niveau from COMPETENCES c inner join Prof f on f.mailProf=f.mailProf inner join MATIERES m on c.id_mat = m.id_mat inner join NIVEAUX n on c.niveau_id=n.niveau_id where c.niveau_id="+idNiveau+"and c.id_mat="+idMatiere, (error, results) => {
         if (error) {
           throw error
         }
