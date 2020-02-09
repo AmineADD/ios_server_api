@@ -68,16 +68,7 @@ server.get('/compt', (request, response) => {
         response.send({result:results.rows}) 
       });
     } else { 
-      let { mailProf, idMatiere, idNiveau} = url_parts.query; 
-      var check="";
-      if(mailProf!==undefined){
-        if(idNiveau===undefined && idMatiere===undefined){ 
-          check="f.mailProf='"+mailProf+"'";
-         }else{
-          check="and f.mailProf='"+mailProf+"'";
-         }  
-      }
-     console.log(idNiveau,idMatiere)
+      let { idMatiere, idNiveau} = url_parts.query; 
       pool.query("select f.*,m.libelle as matiere ,n.libelle as niveau from COMPETENCES c inner join Prof f on f.mailProf=f.mailProf inner join MATIERES m on c.id_mat = m.id_mat inner join NIVEAUX n on c.niveau_id=n.niveau_id where c.niveau_id="+idNiveau+"and c.id_mat="+idMatiere, (error, results) => {
         if (error) {
           throw error
