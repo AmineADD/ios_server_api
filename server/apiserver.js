@@ -213,7 +213,7 @@ server.get('/CoursRealise/:mail', (request, response) => {
 })
 
 server.get('/CoursMesDemande/:mail', (request, response) => {
-  pool.query("select f.mailprof,CONCAT(e.nom,' ',e.prenom) as NOMCompletEtude ,c.mailEleve,n.libelle as niveau , m.libelle as matiere,c.date,c.etat,n.niveau_id,m.id_mat  from COURS c inner join eleve e on e.mailEleve=c.maileleve inner join PROF f on f.mailProf=c.mailProf inner join NIVEAUX n on n.niveau_id=c.niveau_id inner join MATIERES m on m.id_mat=c.id_mat  where etat='demande' and  c.mailProf='"+request.params.mail+"';", (error, results) => {
+  pool.query("select f.mailprof,CONCAT(e.nom,' ',e.prenom) as NOMCompletEtude ,c.mailEleve,n.libelle as niveau , m.libelle as matiere,c.date,c.etat,n.niveau_id,m.id_mat  from COURS c inner join eleve e on e.mailEleve=c.maileleve inner join PROF f on f.mailProf=c.mailProf inner join NIVEAUX n on n.niveau_id=c.niveau_id inner join MATIERES m on m.id_mat=c.id_mat  where etat='demande' and c.date<current_date and c.mailProf='"+request.params.mail+"';", (error, results) => {
     if (error) {
       throw error
     }
